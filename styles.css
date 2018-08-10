@@ -1,6 +1,7 @@
 body {
     text-align: center;
-  background-color: gold;
+  background-color: black;
+  color: aquamarine;
 }
 
 h1 {
@@ -20,7 +21,7 @@ h2:first-of-type {
 table,
 tr,
 td {
-    border: 1px solid black;
+    border: 1px solid greenyellow;
 }
 
 table {
@@ -42,9 +43,7 @@ input[type=number] {
     width: 6em;
 }
 
-input[type=color] {
-  
-}
+
 
 .colourBox {
   width : 200px;
@@ -54,7 +53,7 @@ input[type=color] {
   position: fixed;
   right: 0px;
   opacity: 0.3;
-  color: black;
+  color: greenyellow;
   padding-top: 100px;
  
 }
