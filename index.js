@@ -8,7 +8,7 @@ function makeGrid() {
   //clearing out the pixel
   $("#pixel").html('');
 
- var i=0
+ var i=0;
   //generating the pixel based on the input
   while( i<height ) {
     $('#pixel').append('<tr></tr>');
