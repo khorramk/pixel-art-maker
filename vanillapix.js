@@ -46,8 +46,10 @@ function makeGrid(){
 
      
     let rows = document.querySelectorAll('tr');
-    const arr = Array.prototype.slice.call(rows)
-    const colWorker = new Worker('./colWorker.js');
+
+    for(let r=0; r < rows.length; r++ ){
+        rows[r].innerHTML = '<td></td>';
+    }
     
 
     
