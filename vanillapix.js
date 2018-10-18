@@ -22,16 +22,18 @@ function makeGrid(){
     pixel.innerHTML = "";
     //generating the pixel height
     console.log(inputWidth.value);
-    let row;
-    rowWorker = new Worker('./vanpxWorker.js');
-  
-    rowWorker.postMessage({'height': inputHeight.value})
+    
+    const rowWorker = new Worker('./vanpxWorker.js');
+    rowWorker.postMessage({'height': inputHeight.value});
+ 
+    
+   
     rowWorker.addEventListener('message', function(e){
 
         pixel.innerHTML = e.data.row;
         
-
-          
+          console.log("created rows", pixel);
+        
     }, false);
 
     rowWorker.onerror = function(er){
@@ -42,17 +44,14 @@ function makeGrid(){
       throw new RowException("row is nto appearing");
     }
 
-     let rows = document.querySelectorAll('tr');
-    colWorker = new Worker('./colWorker.js');
-    colWorker.postMessage({ 'width': inputWidth.value});
-     colWorker.addEventListener('message', function(e){
-        const col = e.data.cell;
-        let count = e.data.count;
-       Array.from(rows.forEach(function(e){
-            e.innerHTML = col;
-       }));
-        
-     }, false);
+     
+    let rows = document.querySelectorAll('tr');
+    const arr = Array.prototype.slice.call(rows)
+    const colWorker = new Worker('./colWorker.js');
+    
+
+    
+    
       
      colWorker.onerror = function(er){
          function ColException(message){
@@ -80,12 +79,13 @@ function randomGrid(){
     var h = 0;
     while (h < randomHeight) {
         const tr = document.createElement('tr');
-       
+       tr.setAttribute('class', 'row')
         pixel.appendChild(tr);
         h++
     };
 
     const Listtr = document.querySelectorAll('tr');
+    
     
     
     //pixel width

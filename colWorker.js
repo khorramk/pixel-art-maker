@@ -1,13 +1,18 @@
 self.addEventListener('message', function(e){
 
    const width = e.data.width;
+   const length = e.data.rowsLength;
+    var cell;
    
-       for (var w = 0; w < width; w++) {
+    for (let w = 0; w < width; w++) {
            console.log("worker works");
-           var cell = '<td class="col"></td>';
-        postMessage({'cell': cell, 'count': w});
+            cell  = `<td class="col"></td>`;
+           
+           for(let l =0; l < length; l++){
+               postMessage({ 'cell': cell, 'count': l });
+           }
           
        };
-
+    
 
 }, false);

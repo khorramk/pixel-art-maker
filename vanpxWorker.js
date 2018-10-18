@@ -4,7 +4,7 @@ self.addEventListener('message', function(e){
     
         for (var h = 0; h < height; h++) {
             console.log("worker is working");
-            var tr = '<tr></tr>';
+            let tr = '<tr class="row"></tr>'
             postMessage({'row': tr});
         }
         
