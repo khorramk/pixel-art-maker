@@ -22,27 +22,14 @@ function makeGrid(){
     pixel.innerHTML = "";
     //generating the pixel height
     console.log(inputWidth.value);
-    
-    const rowWorker = new Worker('./vanpxWorker.js');
-    rowWorker.postMessage({'height': inputHeight.value});
- 
-    
-   
-    rowWorker.addEventListener('message', function(e){
 
-        pixel.innerHTML = e.data.row;
-        
-          console.log("created rows", pixel);
-        
-    }, false);
-
-    rowWorker.onerror = function(er){
-      function RowException(message) {
-          this.name ="RowException";
-          this.message = message;
-      }
-      throw new RowException("row is nto appearing");
+    for (let h = 0; h < inputHeight; i++){
+        pixel.innerHTML = '<tr></tr>';
     }
+        
+       
+
+   
 
      
     let rows = document.querySelectorAll('tr');
@@ -52,15 +39,7 @@ function makeGrid(){
     }
     
 
-    
-    
-      
-     colWorker.onerror = function(er){
-         function ColException(message){
-            this.name = "ColException";
-            this.message= message;
-         } throw new ColException("worker is not working");
-     }
+
     
     clickGrid();
 };
