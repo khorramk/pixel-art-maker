@@ -1,21 +1,15 @@
-self.onmessage = function(e){
+self.addEventListener('message', function(e){
     const height = e.data.height;
 
-    try{
-        for (let h = 0; h < height; h++) {
+    
+        for (var h = 0; h < height; h++) {
             console.log("worker is working");
-            postMessage(h);
+            var tr = '<tr></tr>';
+            postMessage({'row': tr});
         }
         
 
-    } catch (e){
-        function Exception (message){
-            this.name = "Exception for loop";
-            this.message = message;
-
-        } throw new Exception('Dom error');
-        postMessage(null);
-    }
-}
     
-   
+});
+    
+

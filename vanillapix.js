@@ -1,10 +1,21 @@
-const inputHeight = document.querySelector('#input_height'),
+var inputHeight = document.querySelector('#input_height'),
     inputWidth = document.querySelector('#input_width'),
     pixel = document.querySelector('#pixel'),
     colorPicker = document.querySelector('#colorPicker'),
     colorBox = document.querySelector('.colourBox'),
-    sizePicker = document.getElementById('sizePicker');
-let table = null;
+    sizePicker = document.getElementById('sizePicker'),
+    rowWorker, colWorker;
+    
+
+
+
+/*function createCol(i, c){
+    
+    let allTr = document.getElementsByTagName('tr');
+console.log(allTr);
+    allTr["0"].innerHTML = i;
+   return 
+}*/
 
 function makeGrid(){
     //this function generate grid
@@ -12,15 +23,17 @@ function makeGrid(){
     //generating the pixel height
     console.log(inputWidth.value);
     let row;
-    const rowWorker = new Worker('./vanpxWorker.js');
+    rowWorker = new Worker('./vanpxWorker.js');
+  
     rowWorker.postMessage({'height': inputHeight.value})
-    rowWorker.onmessage = function(e){
-        row = e.data;
-        const tr = document.createElement('tr');
-        pixel.appendChild(tr);
+    rowWorker.addEventListener('message', function(e){
+
+        pixel.innerHTML = e.data.row;
+        
+
           
-    };
-    console.log(row);
+    }, false);
+
     rowWorker.onerror = function(er){
       function RowException(message) {
           this.name ="RowException";
@@ -29,22 +42,17 @@ function makeGrid(){
       throw new RowException("row is nto appearing");
     }
 
-  const colWorker = new Worker('./colWorker.js');
-    
-   //pixel width
-     
+     let rows = document.querySelectorAll('tr');
+    colWorker = new Worker('./colWorker.js');
     colWorker.postMessage({ 'width': inputWidth.value});
-     colWorker.onmessage = function(e){
-        const cell = e.data;
-        const td = document.createElement('td');
-        td.setAttribute('class',  'col');
-         let allTr = document.querySelectorAll('tr');
-        allTr.forEach(function(t){
-            t.insertCell(td);
-        })
-           //calling the information
-
-     }
+     colWorker.addEventListener('message', function(e){
+        const col = e.data.cell;
+        let count = e.data.count;
+       Array.from(rows.forEach(function(e){
+            e.innerHTML = col;
+       }));
+        
+     }, false);
       
      colWorker.onerror = function(er){
          function ColException(message){
@@ -150,4 +158,8 @@ function init(){
    
 };
 
-init();
+
+
+
+    init();
+

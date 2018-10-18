@@ -1,21 +1,13 @@
-self.onmessage = function(e){
-   const cells = e.data.cell;
+self.addEventListener('message', function(e){
+
    const width = e.data.width;
-   try{
-       for (let w = 0; w < width; w++) {
-           
-        postMessage(w);
+   
+       for (var w = 0; w < width; w++) {
+           console.log("worker works");
+           var cell = '<td class="col"></td>';
+        postMessage({'cell': cell, 'count': w});
           
        };
 
 
-   } catch(er){
-      function RowException(message){
-        this.name = "RowException";
-        this.message = message;
-      };
-      throw new RowException("is not working");
-      postMessage(undefined);
-   };
-    
-};
+}, false);
