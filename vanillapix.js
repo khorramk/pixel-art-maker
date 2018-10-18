@@ -23,23 +23,23 @@ function makeGrid(){
     //generating the pixel height
     console.log(inputWidth.value);
 
-    for (let h = 0; h < inputHeight; i++){
-        pixel.innerHTML = '<tr></tr>';
+    for (let h = 0; h < inputHeight.value; h++){
+        let tr = document.createElement('tr');
+        pixel.appendChild(tr);
     }
         
-       
-
-   
-
      
     let rows = document.querySelectorAll('tr');
+   for(let w =0; w < inputWidth.value; w++){
+       let td = document.createElement('td');
 
-    for(let r=0; r < rows.length; r++ ){
-        rows[r].innerHTML = '<td></td>';
-    }
+           rows.forEach((e)=>{
+               e.insertCell(td);
+           })
+       
+   };
     
-
-
+    
     
     clickGrid();
 };
